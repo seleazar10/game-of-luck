@@ -32,7 +32,7 @@ body{
     transform: translate(-50%, -50%);
     overflow: hidden;
     background-color: #fff;
-    border: solid black 2px;
+    /* border: solid black 2px; */
     box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.3);
 
 }
