@@ -20,19 +20,21 @@ function rollDiceFunction() {
 
     var random = Math.floor(Math.random() * 6) + 1
 
-    document.querySelector("#current-" + activePlayer).innerHTML = random
 
-   
+
     // //////////////---Update Player Score-----////////////////////////
-   
-   
+
+    document.querySelector("#current-" + activePlayer).innerHTML = random
 
     globalScore = globalScore + random
 
     document.querySelector('#score-' + activePlayer).innerHTML = (globalScore)
 
+    activePlayer = activePlayer + 1
 
-    // //////////////////////////////////////////
+
+
+    // //////////////////---Switch Stement to Update Dice Pic----/////////////////////////////////////////////
 
     switch (random) {
         default:
@@ -69,19 +71,30 @@ function rollDiceFunction() {
 
     }
 
-   
-
-
-
-
-
-
-
 
 }
 
+////-----------RESET Btn --//////
+
+function resetFunction() {
+
+    activePlayer = 0;
+
+    var globalScore = 0;
+
+    document.querySelector('#current-0').innerHTML = globalScore
+    document.querySelector('#score-0').innerHTML = globalScore
+    document.querySelector('#current-1').innerHTML = globalScore
+    document.querySelector('#score-1').innerHTML = globalScore
+
+}
+
+///////////////////--On click functions for main three buttons ---////////
+
 
 document.querySelector(".btn-roll").addEventListener("click", rollDiceFunction)
+
+document.querySelector('.btn-new').addEventListener('click', resetFunction)
 
 
 // document.querySelector('.dice').style.display = 'none';
