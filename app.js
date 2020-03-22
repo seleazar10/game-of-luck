@@ -30,7 +30,6 @@ function rollDiceFunction() {
 
     document.querySelector('#score-' + activePlayer).innerHTML = (globalScore)
 
-    activePlayer = activePlayer + 1
 
 
 
@@ -43,6 +42,22 @@ function rollDiceFunction() {
 
         case 1:
             document.querySelector('.dice').src = "dice-1.png";
+            resetFunction()
+            // whichPlayer()
+
+            // activePlayer = activePlayer + 1
+
+            if(activePlayer === 0){
+
+                activePlayer = activePlayer + 1
+                console.log('player 2')
+        
+            }else{
+                activePlayer = 0
+                console.log('player 1')
+        
+            }
+            
             break;
 
         case 2:
@@ -88,6 +103,26 @@ function resetFunction() {
     document.querySelector('#score-1').innerHTML = globalScore
 
 }
+
+
+////----------/////////////
+
+
+function whichPlayer() {
+
+    if(activePlayer === 0){
+
+        activePlayer === activePlayer + 1
+        console.log('player 2')
+
+    }else{
+        activePlayer === 0
+        console.log('player 1')
+
+    }
+}
+
+
 
 ///////////////////--On click functions for main three buttons ---////////
 
