@@ -1,14 +1,5 @@
 
-/*
-GAME RULES:
 
-- The game has 2 players, playing in rounds
-- In each turn, a player rolls a dice as many times as he whishes. Each result get added to his ROUND score
-- BUT, if the player rolls a 1, all his ROUND score gets lost. After that, it's the next player's turn
-- The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
-- The first player to reach 100 points on GLOBAL score wins the game
-
-*/
 
 
 
@@ -21,6 +12,8 @@ var scores = [0, 0]
 
 var random
 
+document.querySelector('.dice').style.display = "none"
+
 
 function rollDiceFunction() {
 
@@ -29,22 +22,35 @@ function rollDiceFunction() {
     random = Math.floor(Math.random() * 6) + 1
 
 
+    ///////////////////////////
+
+   
+
+
 
     // //////////////---Update Player Score-----////////////////////////
 
     document.querySelector("#current-" + activePlayer).innerHTML = random
-
-
-    // globalScore = globalScore + random
 
     globalScore = globalScore + random
 
     document.querySelector('#score-' + activePlayer).innerHTML = (globalScore)
 
 
+    console.log("the global score is " + globalScore)
+
+    // isTheWinner() 
+
+
     
+         
+
+
+
+
     if (random === 1) {
-        document.querySelector('.dice').style.display = "none"
+        console.log('dice landed on -- 1')
+        document.querySelector('.dice').src = "dice-" + random + ".png"          
         resetFunction()
         whichPlayer()
     } else {
@@ -53,46 +59,9 @@ function rollDiceFunction() {
         document.querySelector('.dice').src = "dice-" + random + ".png"
     }
 
+    
 
-
-    // //////////////////---Switch Stement to Update Dice Pic----/////////////////////////////////////////////
-
-    // switch (random) {
-    //     default:
-    //         document.querySelector('.dice').src = "#";
-    //         break;
-
-    //     case 1:
-    //         document.querySelector('.dice').src = "dice-1.png";
-    //         resetFunction()
-    //         whichPlayer()
-    //         break;
-
-    //     case 2:
-    //         document.querySelector('.dice').src = "dice-2.png";
-    //         break;
-
-    //     case 3:
-    //         document.querySelector('.dice').src = ('dice-3.png')
-    //         break;
-
-    //     case 4:
-    //         document.querySelector('.dice').src = ('dice-4.png')
-    //         break;
-
-
-    //     case 5:
-    //         document.querySelector('.dice').src = ('dice-5.png')
-    //         break;
-
-
-    //     case 6:
-    //         document.querySelector('.dice').src = ('dice-6.png')
-    //         break;
-
-
-
-    // }
+   
 
 
 }
@@ -101,14 +70,15 @@ function rollDiceFunction() {
 
 function resetFunction() {
 
+    scores = [0, 0]
 
-
-    document.querySelector('#current-0').innerHTML = 1
+    document.querySelector('#current-0').innerHTML = 0
     document.querySelector('#score-0').innerHTML = 0
-    document.querySelector('#current-1').innerHTML = 1
+    document.querySelector('#current-1').innerHTML = 0
     document.querySelector('#score-1').innerHTML = 0
 
     globalScore = 0;
+
 
 }
 
@@ -117,12 +87,26 @@ function resetFunction() {
 
 
 function whichPlayer() {
+    ////////////////////////////////
+
+
+    scores[activePlayer] = globalScore
+
+    console.log("the score of Player-" + scores[activePlayer] + " is " + globalScore)
+
+    ///////////////////////////////
+
+   
+
+
 
     if (activePlayer === 0) {
 
         activePlayer = activePlayer + 1
-        console.log('player 2 is next')
 
+        globalScore = 0 + scores[activePlayer]
+
+        console.log('player-' + activePlayer + ' is next')
         document.querySelector('.player-0-panel').classList.toggle("active")
         document.querySelector('.player-1-panel').classList.toggle("active")
 
@@ -130,14 +114,42 @@ function whichPlayer() {
 
     } else {
         activePlayer = 0
-        console.log('player 1 is next')
+
+        globalScore = 0 + scores[activePlayer]
+
+        console.log('player-' + activePlayer + ' is next')
         document.querySelector('.player-1-panel').classList.toggle("active")
         document.querySelector('.player-0-panel').classList.toggle("active")
 
 
 
     }
+
 }
+
+
+//function to determine winner
+
+function isTheWinner() {
+
+    //if-else statement to determine if global point is equal to 100
+
+    if (globalScore >= 10) {
+
+
+        console.log("Player-" + [activePlayer] + " selected " + random)
+
+        console.log("Player-" + [activePlayer] + " won the game!")
+        resetFunction()
+        alert("Player-" + [activePlayer] + " won the game!")
+
+
+    } else {
+        console.log('game is not over')
+    }
+}
+
+
 
 
 
