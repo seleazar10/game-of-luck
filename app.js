@@ -11,14 +11,22 @@ GAME RULES:
 */
 
 
+
+
 var activePlayer = 0;
 
-var globalScore = 0;
+var globalScore = 0;   //roundscore
+
+var scores = [0, 0]
+
+var random
 
 
 function rollDiceFunction() {
 
-    var random = Math.floor(Math.random() * 6) + 1
+    /////random number///////
+
+    random = Math.floor(Math.random() * 6) + 1
 
 
 
@@ -26,101 +34,109 @@ function rollDiceFunction() {
 
     document.querySelector("#current-" + activePlayer).innerHTML = random
 
+
+    // globalScore = globalScore + random
+
     globalScore = globalScore + random
 
     document.querySelector('#score-' + activePlayer).innerHTML = (globalScore)
 
 
+    document.querySelector('.dice').src = "dice-" + random + ".png"
+    if (random === 1) {
+        resetFunction()
+        whichPlayer()
+    } else {
+        console.log('not 1')
+    }
+
 
 
     // //////////////////---Switch Stement to Update Dice Pic----/////////////////////////////////////////////
 
-    switch (random) {
-        default:
-            document.querySelector('.dice').src = "#";
-            break;
+    // switch (random) {
+    //     default:
+    //         document.querySelector('.dice').src = "#";
+    //         break;
 
-        case 1:
-            document.querySelector('.dice').src = "dice-1.png";
-            resetFunction()
-            // whichPlayer()
+    //     case 1:
+    //         document.querySelector('.dice').src = "dice-1.png";
+    //         resetFunction()
+    //         whichPlayer()
+    //         break;
 
-            // activePlayer = activePlayer + 1
+    //     case 2:
+    //         document.querySelector('.dice').src = "dice-2.png";
+    //         break;
 
-            if(activePlayer === 0){
+    //     case 3:
+    //         document.querySelector('.dice').src = ('dice-3.png')
+    //         break;
 
-                activePlayer = activePlayer + 1
-                console.log('player 2')
-        
-            }else{
-                activePlayer = 0
-                console.log('player 1')
-        
-            }
-            
-            break;
-
-        case 2:
-            document.querySelector('.dice').src = "dice-2.png";
-            break;
-
-        case 3:
-            document.querySelector('.dice').src = ('dice-3.png')
-            break;
-
-        case 4:
-            document.querySelector('.dice').src = ('dice-4.png')
-            break;
+    //     case 4:
+    //         document.querySelector('.dice').src = ('dice-4.png')
+    //         break;
 
 
-        case 5:
-            document.querySelector('.dice').src = ('dice-5.png')
-            break;
+    //     case 5:
+    //         document.querySelector('.dice').src = ('dice-5.png')
+    //         break;
 
 
-        case 6:
-            document.querySelector('.dice').src = ('dice-6.png')
-            break;
+    //     case 6:
+    //         document.querySelector('.dice').src = ('dice-6.png')
+    //         break;
 
 
 
-    }
+    // }
 
 
 }
 
-////-----------RESET Btn --//////
+////-----------New game function --//////
 
 function resetFunction() {
 
-    activePlayer = 0;
 
-    var globalScore = 0;
 
-    document.querySelector('#current-0').innerHTML = globalScore
-    document.querySelector('#score-0').innerHTML = globalScore
-    document.querySelector('#current-1').innerHTML = globalScore
-    document.querySelector('#score-1').innerHTML = globalScore
+    document.querySelector('#current-0').innerHTML = 1
+    document.querySelector('#score-0').innerHTML = 0
+    document.querySelector('#current-1').innerHTML = 1
+    document.querySelector('#score-1').innerHTML = 0
+
+    globalScore = 0;
 
 }
 
 
-////----------/////////////
+////-----switch plyer function-----/////////////
 
 
 function whichPlayer() {
 
-    if(activePlayer === 0){
+    if (activePlayer === 0) {
 
-        activePlayer === activePlayer + 1
-        console.log('player 2')
+        activePlayer = activePlayer + 1
+        console.log('player 2 is next')
 
-    }else{
-        activePlayer === 0
-        console.log('player 1')
+        document.querySelector('.player-0-panel').classList.remove("active")
+        document.querySelector('.player-1-panel').classList.add("active")
+
+
+
+    } else {
+        activePlayer = 0
+        console.log('player 1 is next')
+        document.querySelector('.player-1-panel').classList.remove("active")
+        document.querySelector('.player-0-panel').classList.add("active")
+
+
 
     }
 }
+
+
 
 
 
@@ -131,5 +147,7 @@ document.querySelector(".btn-roll").addEventListener("click", rollDiceFunction)
 
 document.querySelector('.btn-new').addEventListener('click', resetFunction)
 
+document.querySelector('.btn-hold').addEventListener('click', whichPlayer)
 
-// document.querySelector('.dice').style.display = 'none';
+
+
